@@ -1,0 +1,57 @@
+# @name createComment
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "accountEnabled": true,
+  "displayName": "John Doe",
+  "mailNickname": "johndoe",
+  "userPrincipalName": "cccc@leonardofdesouzasilvaoutloo.onmicrosoft.com",
+  "passwordProfile": {
+    "forceChangePasswordNextSignIn": true,
+    "password": "Password1234!"
+  }
+}
+
+###
+
+@userId = {{createComment.response.body.id}}
+
+PATCH http://localhost:3000/users/{{userId}}
+Content-Type: application/json
+
+{
+  "displayName": "John Doe Updated"
+}
+
+###
+
+@userId = {{createComment.response.body.id}}
+
+DELETE  http://localhost:3000/users/{{userId}}
+Content-Type: application/json
+
+
+###
+
+GET http://localhost:3000/users
+Content-Type: application/json
+
+###
+
+GET http://localhost:3000/users/2ecd06a3-d6e7-4403-9014-d53869b0328f
+Content-Type: application/json
+
+###
+
+POST http://localhost:3000/users/sub
+Content-Type: application/json
+
+{
+  "changeType": "created,updated",
+  "notificationUrl": "https://webhook.azurewebsites.net/notificationClient",
+  "lifecycleNotificationUrl": "https://webhook.azurewebsites.net/api/lifecycleNotifications",
+  "resource": "/users",
+  "expirationDateTime": "2024-06-24T11:00:00.0000000Z",
+  "clientState": "SecretClientState"
+}
